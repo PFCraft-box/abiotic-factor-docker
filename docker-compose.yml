@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   abiotic-server:
+    image: "ghcr.io/pfcraft-box/abiotic-factor-docker:latest"
     # 使用当前目录的 Dockerfile 构建 Ubuntu 24.04 + WineHQ 镜像 / Build Ubuntu 24.04 + WineHQ image from the local Dockerfile
     build: .
     container_name: abiotic-factor-server
