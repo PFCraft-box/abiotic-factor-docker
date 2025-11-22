@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  abiotic-server:
+    # 使用当前目录的 Dockerfile 构建 Ubuntu 24.04 + WineHQ 镜像
+    build: .
+    container_name: abiotic-factor-server
+    restart: unless-stopped
+
+    # 映射游戏文件和存档
+    volumes:
+      - ./gamefiles:/server
+      - ./data:/server/AbioticFactor/Saved
+
+    # 服务器参数（可按需修改）
+    environment:
+      - MaxServerPlayers=6
+      - Port=7777
+      - QueryPort=27015
+      - ServerPassword=ChangeMe
+      - SteamServerName=Abiotic Factor Linux Server
+      - UsePerfThreads=true
+      - NoAsyncLoadingThread=true
+      - WorldSaveName=Cascade
+      # 首次安装或每次启动都检查更新时可以打开：
+      # - AutoUpdate=true
+      # 例如：自定义 Sandbox 配置：
+      # - AdditionalArgs=-SandboxIniPath=Config/WindowsServer/Server1Sandbox.ini
+
+    # 开放 UDP 端口
+    ports:
+      - "7777:7777/udp"
+      - "27015:27015/udp"
